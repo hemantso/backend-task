@@ -17,7 +17,7 @@ const getContractById = async (req, res) => {
 
 const getNonTerminatedContracts = async (req, res) => {
   try {
-    const contracts = await ContractService.getNonTerminatedUserContracts(req);
+    const contracts = await ContractService.getNonTerminatedContracts(req);
     if (!contracts) {
       res.sendStatus(httpStatus.NOT_FOUND);
     } else {

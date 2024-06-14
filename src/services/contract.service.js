@@ -1,15 +1,22 @@
 const { Op } = require('sequelize');
 
 const getContractById = async (req) => {
-  const { Contract } = req.app.get('models');
+  const { Contract, Profile } = req.app.get('models');
   const profileId = req.profile.id;
-  const contract = await Contract.findOne({
-    where: {
-      id: req.params.id,
-      [Op.or]: [{ ContractorId: profileId }, { ClientId: profileId }],
-    },
+  const contractId = req.params.id;
+  
+  return await Contract.findOne({
+    where: { id: contractId },
+    include: [
+      { model: Profile, as: 'Client', attributes: ['id'] },
+      { model: Profile, as: 'Contractor', attributes: ['id'] }
+    ]
+  }).then(contract => {
+    if (contract && (contract.Client.id === profileId || contract.Contractor.id === profileId)) {
+      return contract;
+    }
+    return null;
   });
-  return contract;
 };
 
 const getNonTerminatedContracts = async (req) => {

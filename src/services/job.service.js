@@ -26,7 +26,7 @@ const getUnpaidJobs = async (req) => {
   return unpaidJobs;
 };
 
-const payJob = async (req) => {
+const payForJob = async (req) => {
   const { Contract, Job, Profile } = req.app.get('models');
   const { id, balance, type } = req.profile;
   const jobId = req.params.id;
@@ -86,4 +86,4 @@ const payJob = async (req) => {
   return response;
 };
 
-module.exports = { getUnpaidJobs, payJob };
+module.exports = { getUnpaidJobs, payForJob };

@@ -19,9 +19,9 @@ const getUnpaidJobs = async (req, res) => {
   }
 };
 
-const payJob = async (req, res) => {
+const payForJob = async (req, res) => {
   try {
-    const response = await JobService.payJob(req);
+    const response = await JobService.payForJob(req);
     if (response == '') {
       res.status(httpStatus.NOT_FOUND).json({ message: `Job not found` });
 
@@ -41,5 +41,5 @@ const payJob = async (req, res) => {
 
 module.exports = {
   getUnpaidJobs,
-  payJob
+  payForJob
 };
